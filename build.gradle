@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'com.lilingyan'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            'junit:junit-dep:4.11',
+            'io.netty:netty-all:4.1.10.Final',
+            'org.slf4j:slf4j-log4j12:1.7.25',
+            'org.projectlombok:lombok:1.18.8'
+    )
+}

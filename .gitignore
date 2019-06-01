@@ -1,0 +1,8 @@
+*.iml
+.idea/
+target/
+static/
+.DS_Store
+.gradle
+logs/
+out/
