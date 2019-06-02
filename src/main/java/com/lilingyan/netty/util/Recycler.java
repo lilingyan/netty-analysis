@@ -448,7 +448,7 @@ public abstract class Recycler<T> {
             if (size == 0) {
                 /**
                  * 如果栈里面已经被消耗光了
-                 * 则冲WeakOrderQueue中获取一点
+                 * 则冲WeakOrderQueue中获取
                  */
                 if (!scavenge()) {
                     return null;
@@ -535,6 +535,11 @@ public abstract class Recycler<T> {
             }
         }
 
+        /**
+         * 如果是创建对象的线程回收
+         * 直接加入stack中
+         * @param item
+         */
         private void pushNow(DefaultHandle<?> item) {
             if ((item.recycleId | item.lastRecycledId) != 0) {
                 throw new IllegalStateException("recycled already");
@@ -554,6 +559,13 @@ public abstract class Recycler<T> {
             this.size = size + 1;
         }
 
+        /**
+         * 对象被不是创建的线程调用回收方法
+         * 得到当前线程关联的WeakOrderQueue
+         * 并把回收对象放入
+         * @param item
+         * @param thread
+         */
         private void pushLater(DefaultHandle<?> item, Thread thread) {
             Map<Stack<?>, WeakOrderQueue> delayedRecycled = DELAYED_RECYCLED.get();
             WeakOrderQueue queue = delayedRecycled.get(this);
